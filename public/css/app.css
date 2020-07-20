@@ -1,0 +1,10 @@
+#authentication {
+    display: flex;
+    flex: 1 0 100%;
+
+    width: 100vw;
+    height: 100vh;
+
+    justify-content: center;
+    align-content: center;
+}
