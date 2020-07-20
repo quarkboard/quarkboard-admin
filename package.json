@@ -1,0 +1,19 @@
+{
+  "contributors": [
+    "Ken Stanley <support@dohpaz.dev>"
+  ],
+  "dependencies": {
+    "@quarkboard/quarkboard-plugin": "^0.1.0",
+    "express": "^4.17.1",
+    "helmet": "^3.23.3"
+  },
+  "description": "An administration panel for a Quarkboard.",
+  "main": "lib/admin.js",
+  "name": "@quarkboard/quarkboard-admin",
+  "version": "0.1.0",
+  "directories": {
+    "js": "./js",
+    "css": "./css",
+    "images": "./images"
+  }
+}
