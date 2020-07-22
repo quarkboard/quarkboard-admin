@@ -2,6 +2,11 @@
     <div id="app">
         <header class="navbar navbar-dark bg-dark">
             <router-link to="/" class="navbar-brand" v-bind:class="{ 'mr-auto': !this.loggedIn }"><b>Quarkboard</b>Admin</router-link>
+
+            <router-link v-if="!this.loggedIn && !this.loginPage" to="/login" class="nav-link text-light">
+                <font-awesome-icon icon="sign-in-alt" />
+                Login
+            </router-link>
         </header>
         <main>
             <router-view />
@@ -16,6 +21,10 @@
             loggedIn() {
                 return this.$store.state.auth.status.loggedIn;
             },
+            loginPage() {
+                console.dir(this);
+                return this.$route.name === 'Login';
+            }
         },
     };
 </script>

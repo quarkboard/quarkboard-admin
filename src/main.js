@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
+import store from './store';
 
 import './directives/hidden';
 import 'bootstrap';
@@ -23,5 +24,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 new Vue({
     router,
+    store,
     render: h => h(App),
 }).$mount('#app');
