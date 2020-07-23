@@ -10,8 +10,17 @@ class AuthService {
                 password: user.password,
             })
             .then(response => {
-                if (response.data.accessToken) {
-                    localStorage.setItem('user', JSON.stringify(response.data));
+                const accessToken = response.data.accessToken;
+                const resetPassword = response.data.resetPassword  || false;
+
+                if (accessToken) {
+                    const [, payload,] = accessToken.split('.');
+                    const payloadJson = JSON.parse(new Buffer(payload, 'base64').toString('ascii'));
+
+                    if (payloadJson.username === user.username) {
+                        localStorage.setItem('accessToken', accessToken);
+                        localStorage.setItem('resetPassword', resetPassword);
+                    }
                 }
 
                 return response.data;
@@ -19,7 +28,7 @@ class AuthService {
     }
 
     logout() {
-        localStorage.removeItem('user');
+        localStorage.removeItem('accessToken');
     }
 }
 

@@ -104,7 +104,12 @@
                     if (this.user.username && this.user.password) {
                         this.$store.dispatch('auth/login', this.user).then(
                             () => {
-                                this.$router.push('/profile');
+                                if (localStorage.getItem('resetPassword')) {
+                                    this.$router.push('/password-reset');
+                                    return;
+                                }
+
+                                this.$router.push('/dashboard');
                             },
                             error => {
                                 this.loading = false;
