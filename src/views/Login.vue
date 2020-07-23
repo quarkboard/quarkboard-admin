@@ -16,6 +16,7 @@
                         type="text"
                         class="form-control"
                         name="username"
+                        autocomplete="username"
                     />
                     <div
                         v-hidden="!errors.has('username')"
@@ -34,6 +35,7 @@
                         type="password"
                         class="form-control"
                         name="password"
+                        autocomplete="current-password"
                     />
                     <div
                         v-hidden="!errors.has('password')"
