@@ -2,8 +2,8 @@ import AuthService from '../services/auth.service';
 
 const accessToken = localStorage.getItem('accessToken');
 const initialState = accessToken
-    ? { status: { loggedIn: true }, accessToken: accessToken }
-    : { status: { loggedIn: false }, accessToken: null };
+    ? { loggedIn: true, accessToken: accessToken }
+    : { loggedIn: false, accessToken: null };
 
 export const auth = {
     namespaced: true,
@@ -28,15 +28,15 @@ export const auth = {
     },
     mutations: {
         loginSuccess(state, accessToken) {
-            state.status.loggedIn = true;
+            state.loggedIn = true;
             state.accessToken = accessToken;
         },
         loginFailure(state) {
-            state.status.loggedIn = false;
+            state.loggedIn = false;
             state.accessToken = null;
         },
         logout(state) {
-            state.status.loggedIn = false;
+            state.loggedIn = false;
             state.accessToken = null;
         },
     },

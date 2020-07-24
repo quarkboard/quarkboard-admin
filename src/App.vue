@@ -19,7 +19,7 @@
         name: 'App',
         computed: {
             loggedIn() {
-                return this.$store.state.auth.status.loggedIn;
+                return this.$store.state.auth.loggedIn;
             },
             loginPage() {
                 console.dir(this);
