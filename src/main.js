@@ -23,6 +23,33 @@ Vue.config.productionTip = false;
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
+router.beforeEach((to, from, next) => {
+    const loggedIn = store.state.auth.loggedIn;
+    const resetPassword = store.state.auth.resetPassword;
+    const requiresAuth = typeof to.meta.requiresAuth !== 'undefined'
+        ? to.meta.requiresAuth
+        : true;
+
+    if (loggedIn) {
+        if (to.name !== 'PasswordReset'&& resetPassword) {
+            next({ name: 'PasswordReset' });
+            return;
+        }
+
+        if (to.name === 'Home') {
+            next({ name: 'Dashboard' });
+            return;
+        }
+    }
+
+    if (!loggedIn && requiresAuth) {
+        next({ name: 'Login' });
+        return;
+    }
+
+    next();
+});
+
 new Vue({
     router,
     store,
