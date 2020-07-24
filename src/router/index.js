@@ -4,6 +4,7 @@ import VeeValidate from 'vee-validate';
 import VueHead from 'vue-head';
 import Vuex from 'vuex';
 
+import Dashboard from '@/views/Dashboard.vue';
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import PasswordReset from '@/views/PasswordReset.vue';
@@ -29,6 +30,11 @@ const routes = [
         name: 'PasswordReset',
         component: PasswordReset,
     },
+    {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: Dashboard,
+    }
 ];
 const router = new VueRouter({
     mode: 'history',
