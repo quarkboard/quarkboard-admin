@@ -87,6 +87,9 @@
             loggedIn() {
                 return this.$store.state.auth.loggedIn;
             },
+            passwordReset() {
+                return this.$store.state.auth.resetPassword;
+            },
             version() {
                 return process.env.PACKAGE_VERSION;
             }
@@ -108,7 +111,7 @@
                     if (this.user.username && this.user.password) {
                         this.$store.dispatch('auth/login', this.user).then(
                             () => {
-                                if (localStorage.getItem('resetPassword')) {
+                                if (this.passwordReset) {
                                     this.$router.push('/password-reset');
                                     return;
                                 }
