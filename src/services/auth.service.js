@@ -29,6 +29,7 @@ class AuthService {
 
     logout() {
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('resetPassword');
     }
 }
 
