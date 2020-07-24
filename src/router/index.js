@@ -6,6 +6,7 @@ import Vuex from 'vuex';
 
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
+import PasswordReset from '@/views/PasswordReset.vue';
 
 Vue.use(VeeValidate);
 Vue.use(VueRouter);
@@ -22,6 +23,11 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: Login,
+    },
+    {
+        path: '/password-reset',
+        name: 'PasswordReset',
+        component: PasswordReset,
     },
 ];
 const router = new VueRouter({
