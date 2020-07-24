@@ -75,6 +75,9 @@
 
     export default {
         name: 'Login',
+        head: {
+            title: () => ({ inner: 'Login' }),
+        },
         data() {
             return {
                 user: new User('', ''),
