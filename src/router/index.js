@@ -9,9 +9,7 @@ import Login from '@/views/Login.vue';
 
 Vue.use(VeeValidate);
 Vue.use(VueRouter);
-Vue.use(VueHead, {
-    separator: '-',
-});
+Vue.use(VueHead, { separator: '-' });
 Vue.use(Vuex);
 
 const routes = [
