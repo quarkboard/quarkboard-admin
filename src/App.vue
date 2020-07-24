@@ -22,7 +22,6 @@
                 return this.$store.state.auth.loggedIn;
             },
             loginPage() {
-                console.dir(this);
                 return this.$route.name === 'Login';
             }
         },
