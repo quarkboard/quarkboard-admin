@@ -19,16 +19,19 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home,
+        meta: { requiresAuth: false },
     },
     {
         path: '/login',
         name: 'Login',
         component: Login,
+        meta: { requiresAuth: false },
     },
     {
         path: '/password-reset',
         name: 'PasswordReset',
         component: PasswordReset,
+        meta: { requiresAuth: false },
     },
     {
         path: '/dashboard',
