@@ -1,11 +1,10 @@
 <template>
     <div class="col-md-12">
         <div class="card card-container">
-            <img
-                id="profile-img"
-                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                class="profile-img-card"
-            />
+            <div class="profile-img-card bg-dark py-3">
+                <font-awesome-icon icon="user" class="text-light fa-4x" />
+            </div>
+
             <form name="form" @submit.prevent="handleLogin">
                 <div class="form-group">
                     <label class="text-left" for="username">Username</label>
