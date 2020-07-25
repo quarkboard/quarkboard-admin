@@ -3,7 +3,17 @@ import AuthService from '../services/auth.service';
 const accessToken = localStorage.getItem('accessToken');
 const resetPassword = localStorage.getItem('resetPassword') === "true";
 
-const initialState = accessToken
+const isExpired = function (accessToken) {
+    if (accessToken === null) {
+        return true;
+    }
+
+    const [, payload,] = accessToken.split('.');
+    const payloadJSON = JSON.parse(new Buffer(payload, 'base64').toString('ascii'));
+    return new Date().getTime() <= payloadJSON.exp;
+}
+
+const initialState = !isExpired(accessToken)
     ? { loggedIn: true, accessToken: accessToken, resetPassword: resetPassword }
     : { loggedIn: false, accessToken: null, resetPassword: false };
 
