@@ -27,6 +27,20 @@ export const auth = {
             AuthService.logout();
             commit('logout');
         },
+        reset({ commit }, password) {
+            return AuthService.reset(password).then(
+                response => {
+                    AuthService.logout();
+                    commit('logout');
+                    return Promise.resolve(response.data);
+                },
+                error => {
+                    AuthService.logout();
+                    commit('logout');
+                    return Promise.reject(error);
+                }
+            );
+        }
     },
     mutations: {
         loginSuccess(state, accessToken, resetPassword) {

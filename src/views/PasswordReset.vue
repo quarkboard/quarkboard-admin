@@ -6,9 +6,13 @@
                     <font-awesome-icon icon="key" class="text-light fa-4x" />
                 </div>
 
+                <div>
+                    <h5>Password Reset</h5>
+                </div>
+
                 <form name="form" @submit.prevent="handleReset">
                     <div class="form-group">
-                        <label class="text-left" for="username">Old Password</label>
+                        <label class="text-left" for="oldPassword">Old Password</label>
                         <input
                             v-model="password.oldPassword"
                             v-validate="'required'"
@@ -18,17 +22,18 @@
                             class="form-control"
                             name="oldPassword"
                             autocomplete="current-password"
+                            data-vv-as="old password"
                         />
                         <div
                             v-hidden="!errors.has('oldPassword')"
                             class="text-sm-right small text-danger"
                             role="alert"
                         >
-                            Old password is required!
+                            {{ errors.first('oldPassword') }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="text-left" for="password">New Password</label>
+                        <label class="text-left" for="newPassword">New Password</label>
                         <input
                             v-model="password.newPassword"
                             v-validate="'required'"
@@ -38,33 +43,41 @@
                             class="form-control"
                             name="newPassword"
                             autocomplete="new-password"
+                            ref="newPassword"
+                            data-vv-as="new password"
                         />
                         <div
                             v-hidden="!errors.has('newPassword')"
                             class="text-sm-right small text-danger"
                             role="alert"
                         >
-                            New Password is required!
+                            {{ errors.first('newPassword') }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="text-left" for="confirmPassowrd">Confirm Password</label>
+                        <label class="text-left" for="confirmPassword">Confirm Password</label>
                         <input
-                            v-model="password.confirmPassowrd"
-                            v-validate="'required'"
-                            v-bind:class="{ 'alert-danger': errors.has('confirmPassowrd') }"
-                            id="confirmPassowrd"
+                            v-model="password.confirmPassword"
+                            v-validate="'required|confirmed:newPassword'"
+                            v-bind:class="{ 'alert-danger': errors.has('confirmPassword') }"
+                            id="confirmPassword"
                             type="password"
                             class="form-control"
-                            name="confirmPassowrd"
+                            name="confirmPassword"
                             autocomplete="new-password"
+                            data-vv-as="password"
                         />
                         <div
-                            v-hidden="!errors.has('confirmPassowrd')"
+                            v-hidden="!errors.has('confirmPassword')"
                             class="text-sm-right small text-danger"
                             role="alert"
                         >
-                            Confirmed password is required and must match new password!
+                            {{ errors.first('confirmPassword') }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div v-if="message" class="alert alert-danger" role="alert">
+                            {{ message }}
                         </div>
                     </div>
                     <div class="form-group">
@@ -73,17 +86,12 @@
                             :disabled="loading || errors.has('oldPassword') || errors.has('newPassword') || errors.has('confirmPassword')"
                         >
                         <span
-                            v-show="loading"
+                            v-hidden="!loading"
                             class="spinner-border spinner-border-sm"
                         ></span>
 
                             <span>Reset Password</span>
                         </button>
-                    </div>
-                    <div class="form-group">
-                        <div v-if="message" class="alert alert-danger" role="alert">
-                            {{ message }}
-                        </div>
                     </div>
                 </form>
             </div>
@@ -112,13 +120,16 @@
             };
         },
         computed: {
+            loggedIn() {
+                return this.$store.state.auth.loggedIn;
+            },
             version() {
                 return process.env.PACKAGE_VERSION;
             }
         },
         created() {
             if (!this.loggedIn) {
-                this.$router.push('/login');
+                this.$router.push({ name: 'Login' });
             }
         },
         methods: {
@@ -130,15 +141,10 @@
                         return;
                     }
 
-                    if (this.user.username && this.user.password) {
-                        this.$store.dispatch('auth/reset', this.user).then(
+                    if (this.password.oldPassword && this.password.newPassword && this.password.confirmPassword) {
+                        this.$store.dispatch('auth/reset', this.password).then(
                             () => {
-                                if (this.passwordReset) {
-                                    this.$router.push('/password-reset');
-                                    return;
-                                }
-
-                                this.$router.push('/dashboard');
+                                this.$router.push({ name: 'Login' });
                             },
                             error => {
                                 this.loading = false;
@@ -161,22 +167,33 @@
         margin-top: 10px;
     }
 
+    button {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .spinner-border {
+        margin: auto .5rem;
+        left: -.5rem;
+        position: relative;
+    }
+
     .card-container.card {
         max-width: 350px !important;
-        padding: 40px 40px;
+        padding: 20px 40px 0;
     }
 
     .card {
         background-color: #f7f7f7;
         padding: 20px 25px 30px;
-        margin: 0 auto 25px;
-        margin-top: 50px;
+        margin: 50px auto 25px;
         -moz-border-radius: 2px;
         -webkit-border-radius: 2px;
         border-radius: 2px;
-        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
     }
 
     .profile-img-card {

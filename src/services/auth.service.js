@@ -31,6 +31,19 @@ class AuthService {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('resetPassword');
     }
+
+    reset(password) {
+        return axios
+            .post(API_URL + '/auth/reset', {
+                oldPassword: password.oldPassword,
+                newPassword: password.newPassword,
+                confirmPassword: password.confirmPassword,
+            })
+            .then(() => {
+                localStorage.removeItem('resetPassword');
+                return false;
+            });
+    }
 }
 
 export default new AuthService();
