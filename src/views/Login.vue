@@ -66,7 +66,9 @@
                 </div>
             </form>
         </div>
-        <span class="small">QuarkboardAdmin v{{ this.version }}</span>
+        <div class="text-center">
+            <span class="small">QuarkboardAdmin v{{ this.version }}</span>
+        </div>
     </div>
 </template>
 
