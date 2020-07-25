@@ -3,9 +3,14 @@
         <header class="navbar navbar-dark bg-dark">
             <router-link to="/" class="navbar-brand" v-bind:class="{ 'mr-auto': !this.loggedIn }"><b>Quarkboard</b>Admin</router-link>
 
-            <router-link v-if="!this.loggedIn && !this.loginPage" to="/login" class="nav-link text-light">
+            <router-link v-if="(!this.loggedIn && !this.loginPage) || this.logoutPage" to="/login" class="nav-link text-light">
                 <font-awesome-icon icon="sign-in-alt" />
                 Login
+            </router-link>
+
+            <router-link v-if="this.loggedIn && !this.loginPage && !this.logoutPage" to="/logout" class="nav-link text-light">
+                <font-awesome-icon icon="sign-out-alt" />
+                Logout
             </router-link>
         </header>
         <main>
@@ -23,7 +28,10 @@
             },
             loginPage() {
                 return this.$route.name === 'Login';
-            }
+            },
+            logoutPage() {
+                return this.$route.name === 'Logout';
+            },
         },
     };
 </script>

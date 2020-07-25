@@ -7,6 +7,7 @@ import Vuex from 'vuex';
 import Dashboard from '@/views/Dashboard.vue';
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
+import Logout from '@/views/Logout.vue';
 import PasswordReset from '@/views/PasswordReset.vue';
 
 Vue.use(VeeValidate);
@@ -28,16 +29,21 @@ const routes = [
         meta: { requiresAuth: false },
     },
     {
-        path: '/password-reset',
-        name: 'PasswordReset',
-        component: PasswordReset,
+        path: '/logout',
+        name: 'Logout',
+        component: Logout,
         meta: { requiresAuth: false },
     },
     {
         path: '/dashboard',
         name: 'Dashboard',
         component: Dashboard,
-    }
+    },
+    {
+        path: '/password-reset',
+        name: 'PasswordReset',
+        component: PasswordReset,
+    },
 ];
 const router = new VueRouter({
     mode: 'history',
