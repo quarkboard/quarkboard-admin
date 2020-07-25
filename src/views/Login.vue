@@ -89,7 +89,7 @@
             loggedIn() {
                 return this.$store.state.auth.loggedIn;
             },
-            passwordReset() {
+            resetPassword() {
                 return this.$store.state.auth.resetPassword;
             },
             version() {
@@ -113,7 +113,7 @@
                     if (this.user.username && this.user.password) {
                         this.$store.dispatch('auth/login', this.user).then(
                             () => {
-                                if (this.passwordReset) {
+                                if (this.resetPassword) {
                                     this.$router.push('/password-reset');
                                     return;
                                 }
