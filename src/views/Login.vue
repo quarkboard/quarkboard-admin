@@ -100,7 +100,7 @@
         },
         created() {
             if (this.loggedIn) {
-                this.$router.push('/profile');
+                this.$router.push({ name: 'Dashboard' });
             }
         },
         methods: {
@@ -116,11 +116,10 @@
                         this.$store.dispatch('auth/login', this.user).then(
                             () => {
                                 if (this.resetPassword) {
-                                    this.$router.push('/password-reset');
-                                    return;
+                                    this.$router.push({ name: 'PasswordReset' });
+                                } else if (this.loggedIn) {
+                                    this.$router.push({ name: 'Dashboard' });
                                 }
-
-                                this.$router.push('/dashboard');
                             },
                             error => {
                                 this.loading = false;
