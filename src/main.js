@@ -31,18 +31,11 @@ router.beforeEach((to, from, next) => {
         : true;
 
     if (loggedIn) {
-        if (to.name !== 'PasswordReset'&& resetPassword) {
+        if (resetPassword && ['Login', 'Logout', 'PasswordReset'].indexOf(to.name) < 0) {
             next({ name: 'PasswordReset' });
             return;
         }
-
-        if (to.name === 'Home') {
-            next({ name: 'Dashboard' });
-            return;
-        }
-    }
-
-    if (!loggedIn && requiresAuth) {
+    } else if (requiresAuth) {
         next({ name: 'Login' });
         return;
     }
