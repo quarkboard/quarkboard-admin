@@ -17,6 +17,7 @@
                         class="form-control"
                         name="username"
                         autocomplete="username"
+                        ref="username"
                     />
                     <div
                         v-hidden="!errors.has('username')"
@@ -103,7 +104,13 @@
                 this.$router.push({ name: 'Dashboard' });
             }
         },
+        mounted() {
+            this.focusInput();
+        },
         methods: {
+            focusInput() {
+                this.$refs.username.focus();
+            },
             handleLogin() {
                 this.loading = true;
                 this.$validator.validateAll().then(isValid => {
