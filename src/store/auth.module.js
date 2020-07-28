@@ -10,7 +10,7 @@ const isExpired = function (accessToken) {
 
     const [, payload,] = accessToken.split('.');
     const payloadJSON = JSON.parse(new Buffer(payload, 'base64').toString('ascii'));
-    return new Date().getTime() <= payloadJSON.exp;
+    return (payloadJSON.exp * 1000) <= new Date().getTime();
 }
 
 const initialState = !isExpired(accessToken)
