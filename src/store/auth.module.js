@@ -1,17 +1,19 @@
 import AuthService from '../services/auth.service';
 
 const accessToken = localStorage.getItem('accessToken');
-const resetPassword = localStorage.getItem('resetPassword') === "true";
+const resetPassword = localStorage.getItem('resetPassword') === 'true';
 
-const isExpired = function (accessToken) {
+const isExpired = function(accessToken) {
     if (accessToken === null) {
         return true;
     }
 
-    const [, payload,] = accessToken.split('.');
-    const payloadJSON = JSON.parse(new Buffer(payload, 'base64').toString('ascii'));
-    return (payloadJSON.exp * 1000) <= new Date().getTime();
-}
+    const [, payload] = accessToken.split('.');
+    const payloadJSON = JSON.parse(
+        new Buffer(payload, 'base64').toString('ascii'),
+    );
+    return payloadJSON.exp * 1000 <= new Date().getTime();
+};
 
 const initialState = !isExpired(accessToken)
     ? { loggedIn: true, accessToken: accessToken, resetPassword: resetPassword }
@@ -23,7 +25,7 @@ export const auth = {
     actions: {
         login({ commit }, user) {
             return AuthService.login(user).then(
-                (obj) => {
+                obj => {
                     commit('loginSuccess', obj);
                     return Promise.resolve(obj);
                 },
@@ -49,9 +51,9 @@ export const auth = {
                     AuthService.logout();
                     commit('logout');
                     return Promise.reject(error);
-                }
+                },
             );
-        }
+        },
     },
     mutations: {
         loginSuccess(state, obj) {

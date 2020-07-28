@@ -11,11 +11,13 @@ class AuthService {
             })
             .then(response => {
                 const accessToken = response.data.accessToken;
-                const resetPassword = response.data.resetPassword  || false;
+                const resetPassword = response.data.resetPassword || false;
 
                 if (accessToken) {
-                    const [, payload,] = accessToken.split('.');
-                    const payloadJson = JSON.parse(new Buffer(payload, 'base64').toString('ascii'));
+                    const [, payload] = accessToken.split('.');
+                    const payloadJson = JSON.parse(
+                        new Buffer(payload, 'base64').toString('ascii'),
+                    );
 
                     if (payloadJson.username === user.username) {
                         localStorage.setItem('accessToken', accessToken);

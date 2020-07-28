@@ -12,11 +12,15 @@
 
                 <form name="form" @submit.prevent="handleReset">
                     <div class="form-group">
-                        <label class="text-left" for="oldPassword">Old Password</label>
+                        <label class="text-left" for="oldPassword"
+                            >Old Password</label
+                        >
                         <input
                             v-model="password.oldPassword"
                             v-validate="'required'"
-                            v-bind:class="{ 'alert-danger': errors.has('oldPassword') }"
+                            v-bind:class="{
+                                'alert-danger': errors.has('oldPassword'),
+                            }"
                             id="oldPassword"
                             type="password"
                             class="form-control"
@@ -33,11 +37,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="text-left" for="newPassword">New Password</label>
+                        <label class="text-left" for="newPassword"
+                            >New Password</label
+                        >
                         <input
                             v-model="password.newPassword"
                             v-validate="'required'"
-                            v-bind:class="{ 'alert-danger': errors.has('newPassword') }"
+                            v-bind:class="{
+                                'alert-danger': errors.has('newPassword'),
+                            }"
                             id="newPassword"
                             type="password"
                             class="form-control"
@@ -55,11 +63,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="text-left" for="confirmPassword">Confirm Password</label>
+                        <label class="text-left" for="confirmPassword"
+                            >Confirm Password</label
+                        >
                         <input
                             v-model="password.confirmPassword"
                             v-validate="'required|confirmed:newPassword'"
-                            v-bind:class="{ 'alert-danger': errors.has('confirmPassword') }"
+                            v-bind:class="{
+                                'alert-danger': errors.has('confirmPassword'),
+                            }"
                             id="confirmPassword"
                             type="password"
                             class="form-control"
@@ -76,19 +88,28 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div v-if="message" class="alert alert-danger" role="alert">
+                        <div
+                            v-if="message"
+                            class="alert alert-danger"
+                            role="alert"
+                        >
                             {{ message }}
                         </div>
                     </div>
                     <div class="form-group">
                         <button
                             class="btn btn-primary btn-block"
-                            :disabled="loading || errors.has('oldPassword') || errors.has('newPassword') || errors.has('confirmPassword')"
+                            :disabled="
+                                loading ||
+                                    errors.has('oldPassword') ||
+                                    errors.has('newPassword') ||
+                                    errors.has('confirmPassword')
+                            "
                         >
-                        <span
-                            v-hidden="!loading"
-                            class="spinner-border spinner-border-sm"
-                        ></span>
+                            <span
+                                v-hidden="!loading"
+                                class="spinner-border spinner-border-sm"
+                            ></span>
 
                             <span>Reset Password</span>
                         </button>
@@ -125,7 +146,7 @@
             },
             version() {
                 return process.env.PACKAGE_VERSION;
-            }
+            },
         },
         created() {
             if (!this.loggedIn) {
@@ -141,7 +162,11 @@
                         return;
                     }
 
-                    if (this.password.oldPassword && this.password.newPassword && this.password.confirmPassword) {
+                    if (
+                        this.password.oldPassword &&
+                        this.password.newPassword &&
+                        this.password.confirmPassword
+                    ) {
                         this.$store.dispatch('auth/reset', this.password).then(
                             () => {
                                 this.$router.push({ name: 'Login' });
@@ -157,7 +182,7 @@
                     }
                 });
             },
-        }
+        },
     };
 </script>
 
@@ -174,8 +199,8 @@
     }
 
     .spinner-border {
-        margin: auto .5rem;
-        left: -.5rem;
+        margin: auto 0.5rem;
+        left: -0.5rem;
         position: relative;
     }
 

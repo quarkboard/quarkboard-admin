@@ -11,7 +11,9 @@
                     <input
                         v-model="user.username"
                         v-validate="'required'"
-                        v-bind:class="{ 'alert-danger': errors.has('username') }"
+                        v-bind:class="{
+                            'alert-danger': errors.has('username'),
+                        }"
                         id="username"
                         type="text"
                         class="form-control"
@@ -32,7 +34,9 @@
                     <input
                         v-model="user.password"
                         v-validate="'required'"
-                        v-bind:class="{ 'alert-danger': errors.has('password') }"
+                        v-bind:class="{
+                            'alert-danger': errors.has('password'),
+                        }"
                         id="password"
                         type="password"
                         class="form-control"
@@ -50,7 +54,11 @@
                 <div class="form-group">
                     <button
                         class="btn btn-primary btn-block"
-                        :disabled="loading || errors.has('username') || errors.has('password')"
+                        :disabled="
+                            loading ||
+                                errors.has('username') ||
+                                errors.has('password')
+                        "
                     >
                         <span
                             v-show="loading"
@@ -97,7 +105,7 @@
             },
             version() {
                 return process.env.PACKAGE_VERSION;
-            }
+            },
         },
         created() {
             if (this.loggedIn) {
@@ -123,7 +131,9 @@
                         this.$store.dispatch('auth/login', this.user).then(
                             () => {
                                 if (this.resetPassword) {
-                                    this.$router.push({ name: 'PasswordReset' });
+                                    this.$router.push({
+                                        name: 'PasswordReset',
+                                    });
                                 } else if (this.loggedIn) {
                                     this.$router.push({ name: 'Dashboard' });
                                 }
