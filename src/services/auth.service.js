@@ -1,4 +1,5 @@
 import axios from 'axios';
+import user from '../models/user';
 
 const API_URL = '/api';
 
@@ -11,7 +12,6 @@ class AuthService {
             })
             .then(response => {
                 const accessToken = response.data.accessToken;
-                const resetPassword = response.data.resetPassword || false;
 
                 if (!user.validate(accessToken, username)) {
                     throw new Error(`Invalid user ${username} after authentication`)
@@ -33,7 +33,7 @@ class AuthService {
                 confirmPassword: password.confirmPassword,
             })
             .then(() => {
-                localStorage.removeItem('resetPassword');
+                user.resetPassword = false;
                 return false;
             });
     }
