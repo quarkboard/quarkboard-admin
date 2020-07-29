@@ -1,30 +1,32 @@
 <template>
     <div id="app">
         <header class="navbar navbar-dark bg-dark">
-            <router-link
-                to="/"
-                class="navbar-brand"
-                v-bind:class="{ 'mr-auto': !this.loggedIn }"
-                ><b>Quarkboard</b>Admin
-            </router-link>
+            <div class="d-flex w-100 justify-content-between align-items-end">
+                <router-link
+                    to="/"
+                    class="navbar-brand"
+                    v-bind:class="{ 'mr-auto': !this.loggedIn }"
+                    ><b>Quarkboard</b>Admin
+                </router-link>
 
-            <router-link
-                v-if="(!this.loggedIn && !this.loginPage) || this.logoutPage"
-                to="/login"
-                class="nav-link text-light"
-            >
-                <font-awesome-icon icon="sign-in-alt" />
-                Login
-            </router-link>
+                <router-link
+                    v-if="(!this.loggedIn && !this.loginPage) || this.logoutPage"
+                    to="/login"
+                    class="nav-link text-light"
+                >
+                    <font-awesome-icon icon="sign-in-alt" />
+                    Login
+                </router-link>
 
-            <router-link
-                v-if="this.loggedIn && !this.loginPage && !this.logoutPage"
-                to="/logout"
-                class="nav-link text-light"
-            >
-                <font-awesome-icon icon="sign-out-alt" />
-                Logout
-            </router-link>
+                <router-link
+                    v-if="this.loggedIn && !this.loginPage && !this.logoutPage"
+                    to="/logout"
+                    class="nav-link text-light pr-0"
+                >
+                    <font-awesome-icon icon="sign-out-alt" />
+                    Logout
+                </router-link>
+            </div>
         </header>
         <main>
             <router-view />
