@@ -10,6 +10,11 @@ const decode = function(token) {
     }
 
     const [, payload] = token.split('.');
+
+    if (typeof payload === "undefined") {
+        throw new Error(`Invalid JWT token: ${token}`);
+    }
+
     return JSON.parse(new Buffer(payload, 'base64').toString('ascii'));
 };
 
