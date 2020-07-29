@@ -4,11 +4,11 @@ import user from '../models/user';
 const API_URL = '/api';
 
 class AuthService {
-    login(user) {
+    login(username, password) {
         return axios
             .post(API_URL + '/auth/jwt', {
-                username: user.username,
-                password: user.password,
+                username: username,
+                password: password,
             })
             .then(response => {
                 const accessToken = response.data.accessToken;

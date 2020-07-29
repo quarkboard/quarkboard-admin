@@ -5,11 +5,11 @@ export const auth = {
     namespaced: true,
     state: user,
     actions: {
-        login({ commit }, user) {
-            return AuthService.login(user).then(
-                obj => {
-                    commit('loginSuccess', obj);
-                    return Promise.resolve(obj);
+        login({ commit }, creds) {
+            return AuthService.login(creds.username, creds.password).then(
+                response => {
+                    commit('loginSuccess', response);
+                    return Promise.resolve(response);
                 },
                 error => {
                     AuthService.logout();
