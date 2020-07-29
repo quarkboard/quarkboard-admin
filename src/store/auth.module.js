@@ -38,8 +38,8 @@ export const auth = {
         },
     },
     mutations: {
-        loginSuccess(state, obj) {
-            state.token = obj.accessToken;
+        loginSuccess(state, response) {
+            state.token = response.accessToken;
         },
         logout(state) {
             state.logout();
