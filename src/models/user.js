@@ -102,6 +102,14 @@ class User {
         return this;
     }
 
+    /**
+     * Return if the given token {token} is valid, and that {username} matches
+     * the username inside of the token.
+     *
+     * @param {string} token
+     * @param {string} username
+     * @returns {boolean|boolean}
+     */
     validate(token, username) {
         const payload = decode(token);
         return payload.username === username && valid(payload.exp);
