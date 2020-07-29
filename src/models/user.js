@@ -92,6 +92,15 @@ class User {
 
         this._token = decode(token);
     }
+
+    /**
+     * Destroy the user session and log them out.
+     * @returns {User}
+     */
+    logout() {
+        this.token = null;
+        return this;
+    }
 }
 
 export default new User();

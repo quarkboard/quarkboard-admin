@@ -42,7 +42,7 @@ export const auth = {
             state.token = obj.accessToken;
         },
         logout(state) {
-            state.token = null;
+            state.logout();
         },
     },
 };
