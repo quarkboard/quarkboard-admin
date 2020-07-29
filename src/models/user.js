@@ -71,7 +71,9 @@ class User {
     }
 
     /**
-     * Set the value of the internal token to {token}.
+     * Set the value of the internal token to {token}. This will update the
+     * local storage with either the new token, or if there is no token, then it
+     * will remove it from local storage—effectively logging the user out.
      *
      * @param {string|null} token
      */
