@@ -100,7 +100,6 @@
                 return this.$store.state.auth.loggedIn;
             },
             resetPassword() {
-                console.dir(this.$store.state.auth);
                 return this.$store.state.auth.resetPassword;
             },
             version() {
