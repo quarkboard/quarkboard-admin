@@ -9,7 +9,7 @@
                 <div class="form-group">
                     <label class="text-left" for="username">Username</label>
                     <input
-                        v-model="user.username"
+                        v-model="username"
                         v-validate="'required'"
                         v-bind:class="{
                             'alert-danger': errors.has('username'),
@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <label class="text-left" for="password">Password</label>
                     <input
-                        v-model="user.password"
+                        v-model="password"
                         v-validate="'required'"
                         v-bind:class="{
                             'alert-danger': errors.has('password'),
@@ -82,8 +82,6 @@
 </template>
 
 <script>
-    import User from '../models/user';
-
     export default {
         name: 'Login',
         head: {
@@ -91,7 +89,8 @@
         },
         data() {
             return {
-                user: new User('', ''),
+                username: null,
+                password: null,
                 loading: false,
                 message: '',
             };
@@ -101,6 +100,7 @@
                 return this.$store.state.auth.loggedIn;
             },
             resetPassword() {
+                console.dir(this.$store.state.auth);
                 return this.$store.state.auth.resetPassword;
             },
             version() {
@@ -127,8 +127,11 @@
                         return;
                     }
 
-                    if (this.user.username && this.user.password) {
-                        this.$store.dispatch('auth/login', this.user).then(
+                    if (this.username && this.password) {
+                        this.$store.dispatch('auth/login', {
+                            username: this.username,
+                            password: this.password,
+                        }).then(
                             () => {
                                 if (this.resetPassword) {
                                     this.$router.push({

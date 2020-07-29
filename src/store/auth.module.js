@@ -1,27 +1,9 @@
 import AuthService from '../services/auth.service';
-
-const accessToken = localStorage.getItem('accessToken');
-const resetPassword = localStorage.getItem('resetPassword') === 'true';
-
-const isExpired = function(accessToken) {
-    if (accessToken === null) {
-        return true;
-    }
-
-    const [, payload] = accessToken.split('.');
-    const payloadJSON = JSON.parse(
-        new Buffer(payload, 'base64').toString('ascii'),
-    );
-    return payloadJSON.exp * 1000 <= new Date().getTime();
-};
-
-const initialState = !isExpired(accessToken)
-    ? { loggedIn: true, accessToken: accessToken, resetPassword: resetPassword }
-    : { loggedIn: false, accessToken: null, resetPassword: false };
+import user from '../models/user';
 
 export const auth = {
     namespaced: true,
-    state: initialState,
+    state: user,
     actions: {
         login({ commit }, user) {
             return AuthService.login(user).then(
@@ -57,14 +39,10 @@ export const auth = {
     },
     mutations: {
         loginSuccess(state, obj) {
-            state.loggedIn = true;
-            state.accessToken = obj.accessToken;
-            state.resetPassword = obj.resetPassword;
+            state.token = obj.accessToken;
         },
         logout(state) {
-            state.loggedIn = false;
-            state.accessToken = null;
-            state.resetPassword = false;
+            state.token = null;
         },
     },
 };
