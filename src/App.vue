@@ -1,6 +1,9 @@
 <template>
     <div id="app">
         <header class="navbar navbar-dark bg-dark">
+            <div class="w-100 text-right" v-hidden="!this.loggedIn">
+                <div class="nav-link text-light pr-0">Welcome back, {{ this.username }}</div>
+            </div>
             <div class="d-flex w-100 justify-content-between align-items-end">
                 <router-link
                     to="/"
@@ -47,6 +50,9 @@
             logoutPage() {
                 return this.$route.name === 'Logout';
             },
+            username() {
+                return this.$store.state.auth.username;
+            }
         },
     };
 </script>
