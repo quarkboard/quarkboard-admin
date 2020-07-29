@@ -127,27 +127,32 @@
                     }
 
                     if (this.username && this.password) {
-                        this.$store.dispatch('auth/login', {
-                            username: this.username,
-                            password: this.password,
-                        }).then(
-                            () => {
-                                if (this.resetPassword) {
-                                    this.$router.push({
-                                        name: 'PasswordReset',
-                                    });
-                                } else if (this.loggedIn) {
-                                    this.$router.push({ name: 'Dashboard' });
-                                }
-                            },
-                            error => {
-                                this.loading = false;
-                                this.message =
-                                    (error.response && error.response.data) ||
-                                    error.message ||
-                                    error.toString();
-                            },
-                        );
+                        this.$store
+                            .dispatch('auth/login', {
+                                username: this.username,
+                                password: this.password,
+                            })
+                            .then(
+                                () => {
+                                    if (this.resetPassword) {
+                                        this.$router.push({
+                                            name: 'PasswordReset',
+                                        });
+                                    } else if (this.loggedIn) {
+                                        this.$router.push({
+                                            name: 'Dashboard',
+                                        });
+                                    }
+                                },
+                                error => {
+                                    this.loading = false;
+                                    this.message =
+                                        (error.response &&
+                                            error.response.data) ||
+                                        error.message ||
+                                        error.toString();
+                                },
+                            );
                     }
                 });
             },
