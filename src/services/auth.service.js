@@ -13,16 +13,8 @@ class AuthService {
                 const accessToken = response.data.accessToken;
                 const resetPassword = response.data.resetPassword || false;
 
-                if (accessToken) {
-                    const [, payload] = accessToken.split('.');
-                    const payloadJson = JSON.parse(
-                        new Buffer(payload, 'base64').toString('ascii'),
-                    );
-
-                    if (payloadJson.username === user.username) {
-                        localStorage.setItem('accessToken', accessToken);
-                        localStorage.setItem('resetPassword', resetPassword);
-                    }
+                if (!user.validate(accessToken, username)) {
+                    throw new Error(`Invalid user ${username} after authentication`)
                 }
 
                 return response.data;

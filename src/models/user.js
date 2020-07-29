@@ -101,6 +101,11 @@ class User {
         this.token = null;
         return this;
     }
+
+    validate(token, username) {
+        const payload = decode(token);
+        return payload.username === username && valid(payload.exp);
+    }
 }
 
 export default new User();
