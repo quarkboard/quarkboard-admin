@@ -65,7 +65,7 @@
                             class="spinner-border spinner-border-sm"
                         ></span>
 
-                        <span>Login</span>
+                        <span v-if="!loading">Login</span>
                     </button>
                 </div>
                 <div class="form-group">
