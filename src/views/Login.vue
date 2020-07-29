@@ -53,7 +53,7 @@
                 </div>
                 <div class="form-group">
                     <button
-                        class="btn btn-primary btn-block"
+                        class="btn btn-primary btn-block d-flex justify-content-center align-items-center"
                         :disabled="
                             loading ||
                                 errors.has('username') ||
