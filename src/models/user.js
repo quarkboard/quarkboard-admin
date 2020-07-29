@@ -65,6 +65,9 @@ class User {
      * @param {string|null} token
      */
     set token(token) {
+        token !== null && localStorage.setItem('accessToken', token);
+        token === null && localStorage.removeItem('accessToken');
+
         this._token = decode(token);
     }
 }
