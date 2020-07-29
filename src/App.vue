@@ -66,7 +66,6 @@
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-weight: 300;
             font-size: 20px;
-            line-height: 50px;
         }
 
         nav {
