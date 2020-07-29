@@ -13,6 +13,10 @@ const decode = function(token) {
     return JSON.parse(new Buffer(payload, 'base64').toString('ascii'));
 };
 
+const valid = function(exp) {
+    return exp * 1000 > new Date().getTime();
+};
+
 /**
  * User model
  */
@@ -22,23 +26,12 @@ class User {
     }
 
     /**
-     * Return whether or not the user's token is expired.
-     *
-     * @returns {boolean}
-     */
-    get expired() {
-        return (
-            this._token === null || this._token.exp * 1000 <= new Date().getTime()
-        );
-    }
-
-    /**
      * Return whether or not the user is logged in.
      *
      * @returns {boolean}
      */
     get loggedIn() {
-        return this.expired === false;
+        return this.valid;
     }
 
     /**
@@ -57,6 +50,19 @@ class User {
      */
     get username() {
         return this._token.username;
+    }
+
+    /**
+     * Return whether or not the user object is considered valid. A valid user
+     * has a JWT token, and the token is not yet expired.
+     *
+     * @returns {boolean}
+     */
+    get valid() {
+        return (
+            this._token !== null &&
+            valid(this._token.exp)
+        );
     }
 
     /**
